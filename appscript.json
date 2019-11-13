@@ -1,6 +1,8 @@
 {
   "oauthScopes": [
-    "https://www.googleapis.com/auth/gmail.addons.execute"
+    "https://www.googleapis.com/auth/gmail.addons.execute",
+    "https://www.googleapis.com/auth/gmail.addons.current.message.readonly",
+    "https://www.googleapis.com/auth/script.storage"
   ],
   "gmail": {
     "name": "Mass Email Detector",
@@ -14,3 +16,4 @@
     "secondaryColor": "#94f441"
   }
 }
+

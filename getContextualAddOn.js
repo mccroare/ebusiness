@@ -1,22 +1,19 @@
 function getContextualAddOn(event) {
-  var card = CardService.newCardBuilder();
-  card.setHeader(CardService.newCardHeader().setTitle('Mass Email Detector'));
-
-  var section = CardService.newCardSection();
-  section.addWidget(CardService.newKeyValue()
-    .setContent("Turn on detector")
-    .setSwitch(CardService.newSwitch()
-        .setFieldName("form_input_switch_key")
-        .setValue("form_input_switch_value")
-        .setOnChangeAction(CardService.newAction()
-            .setFunctionName("handleSwitchChange"))));
+  var message = getCurrentMessage(event);
+  var prefill = [getEmailBody(message)];
+  var result = checkEmail(message);
   
-  section.addWidget(CardService.newKeyValue()
-    .setTopLabel("Message")
-    .setContent("Email found."));
-  
-
-  card.addSection(section);
+  var card = createDetectedCard(prefill, result);
 
   return [card.build()];
+}
+
+
+// Take in the email
+function getCurrentMessage(event) {
+  var accessToken = event.messageMetadata.accessToken;
+  var messageId = event.messageMetadata.messageId;
+  GmailApp.setCurrentMessageAccessToken(accessToken);
+  return GmailApp.getMessageById(messageId);
+  
 }
